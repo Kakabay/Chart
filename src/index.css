@@ -1,68 +1,169 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.container {
+  padding: 0 3rem;
+  margin: 0 auto;
+  max-width: 158.2rem;
+  width: 100%;
+}
+
+.chart {
+  .container {
+    padding: 0 2rem;
+    margin: 0 auto;
+    max-width: 155.2rem;
+    width: 100%;
+  }
+}
+
+html {
+  font-size: 62.5%;
+  font-family: 'Roboto', sans-serif;
+}
+
+ul {
+  list-style-type: none;
+}
+
+input,
+button {
+  background: none;
+  outline: none;
+  border: none;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  color: $base-black;
+  text-decoration: none;
 }
 
-body {
-  margin: 0;
+p,
+span,
+a,
+input,
+button,
+ul,
+li,
+ol,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 150%;
+}
+
+:root {
+  --base-black: #151515;
+  --base-white: #fff;
+  --base-gray: #868686;
+  --base-blue: #05172d;
+  --base-light-blue: #afbfcb;
+  --base-bright-blue: #4b8dff;
+}
+
+@media (max-width: 425px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+.ticker {
+  background: var(--base-blue);
+  color: var(--base-white);
+  font-size: 1.6rem;
+  z-index: 1100;
+}
+
+.ticker-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 1.6rem 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.ticker-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 50rem;
+  padding: 0 1.6rem;
+  border-left: 1px solid var(--base-gray);
+  border-right: 1px solid var(--base-gray);
+
+  .green {
+    color: #6eeb83;
+  }
+
+  .red {
+    color: #ff5e5b;
+  }
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.ticker-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.ticker-content {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.ticker-price {
+  font-size: 1.8rem;
+}
+
+.ticker-status {
+  display: flex;
+  align-items: center;
+  color: #6eeb83;
+  gap: 0.8rem;
+
+  span {
+    display: inline-block;
+    font-size: 1.8rem;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+.ticker-arrow {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  /* min-height: calc(80vh - 3px); */
+  height: 85vh;
+  background: url('./assets/WorldDigitalBackgroundLoop.mkv');
+  position: relative;
+}
+
+.slide video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
