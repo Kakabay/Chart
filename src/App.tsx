@@ -9,9 +9,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 
 import Myvideo from './assets/WorldDigitalBackgroundLoop.mp4';
+import { PriceData } from './ChartData';
 
 // Import Swiper styles
 import 'swiper/css';
+import LineChart from './components/LineChart';
+import { useState } from 'react';
 
 const marqueeItems = [
   {
@@ -199,6 +202,16 @@ const marqueeItems = [
 ];
 
 function App() {
+  const [chartData, setChartData] = useState({
+    labels: PriceData.map((data) => data.year),
+    datasets: [
+      {
+        label: 'Price',
+        data: PriceData.map((data) => data.price),
+      },
+    ],
+  });
+
   return (
     <main>
       <div>
@@ -254,18 +267,22 @@ function App() {
             delay: 5100,
             disableOnInteraction: false,
           }}
+          onSlideChange={(swiperCore) => {
+            const { realIndex } = swiperCore;
+            console.log(realIndex);
+          }}
           modules={[Autoplay]}
           className="mySwiper">
-          <SwiperSlide>
-            <div className="slide">
-              <video src={Myvideo} autoPlay loop muted />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="slide">
-              <video src={Myvideo} autoPlay loop muted />
-            </div>
-          </SwiperSlide>
+          {PriceData.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className="slide">
+                <video src={Myvideo} autoPlay loop muted />
+                <div className="chart-wrapper">
+                  <LineChart />
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </main>
