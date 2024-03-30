@@ -269,7 +269,7 @@ function App() {
             <SwiperSlide key={index}>
               <div className="slide">
                 <video src={Myvideo} autoPlay loop muted />
-                <LineChart title={item.title} prices={item.price} years={item.year} />
+                <LineChart index={index} title={item.title} prices={item.price} years={item.year} />
               </div>
             </SwiperSlide>
           ))}

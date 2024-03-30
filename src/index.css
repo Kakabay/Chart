@@ -184,10 +184,13 @@ h6 {
 
 .chart {
   width: 70%;
-  height: 70%;
   display: flex;
+  flex-direction: column;
+  gap: 20px;
   justify-content: center;
   align-items: center;
+  background-color: #0000005b;
+  padding: 20px;
 }
 
 .chart-title {

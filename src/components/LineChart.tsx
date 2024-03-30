@@ -13,54 +13,85 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 interface IProps {
   prices: number[];
+  index: number;
   years: string[];
   title: string;
 }
 
-const LineChart = ({ prices, years, title }: IProps) => {
+const LineChart = ({ prices, years, title, index }: IProps) => {
   const [chartData, setChartData] = useState({
     labels: years,
     datasets: [
       {
         label: 'Price',
         data: prices,
-
-        fill: 'white',
+        fill: 'origin', // Keep the fill origin for better visualization
         tension: 0,
-        backgroundColor: '#e2e04d',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Black with 50% opacity
         borderColor: '#99971c',
         borderWidth: 4,
       },
     ],
   });
 
+  useEffect(() => {
+    setChartData({
+      labels: PriceData[index].year,
+      datasets: [
+        {
+          label: 'Price',
+          data: PriceData[index].price,
+          fill: 'origin', // Keep the fill origin for better visualization
+          tension: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Black with 50% opacity
+          borderColor: '#99971c',
+          borderWidth: 4,
+        },
+      ],
+    });
+  }, [index]);
+
   console.log('render');
 
   const options = {
-    animations: {
-      tension: {
-        duration: 2000,
-        easing: 'ease',
-        from: 1,
-        to: 0.1,
-        loop: true,
-      },
+    animation: {
+      duration: 1500, // Animation duration in milliseconds
+      easing: 'linear', // Easing function to use
+      loop: true, // If set to true, the animations loop endlessly
     },
-
     scales: {
       y: {
-        ticks: { color: 'white', beginAtZero: true },
+        beginAtZero: true,
+        grid: {
+          display: true, // Show grid lines on the x-axis
+          color: '#ffffff8d', // Set the grid line color to white
+          lineWidth: 1, // Adjust the line width as needed
+        },
+        ticks: {
+          color: 'white',
+          beginAtZero: true,
+          font: {
+            size: 16, // Adjust the font size for y-axis labels
+          },
+        },
       },
       x: {
-        ticks: { color: 'white', beginAtZero: true },
+        beginAtZero: true,
+        ticks: {
+          color: 'white',
+          beginAtZero: true,
+          font: {
+            size: 16, // Adjust the font size for y-axis labels
+          },
+        },
       },
     },
   };
 
   return (
     <div className="line-chart">
-      <h1 className="chart-title">{title}</h1>
       <div className="chart">
+        <h1 className="chart-title">{title}</h1>
         <Line data={chartData} options={options}></Line>
       </div>
     </div>
