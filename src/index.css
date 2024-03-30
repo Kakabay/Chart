@@ -189,3 +189,9 @@ h6 {
   justify-content: center;
   align-items: center;
 }
+
+.chart-title {
+  color: white;
+  font-size: 32px;
+  font-weight: 700;
+}

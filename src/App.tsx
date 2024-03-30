@@ -201,16 +201,10 @@ const marqueeItems = [
   },
 ];
 
+// const [counter, setCounter] = useState<number>(0);
+
 function App() {
-  const [chartData, setChartData] = useState({
-    labels: PriceData.map((data) => data.year),
-    datasets: [
-      {
-        label: 'Price',
-        data: PriceData.map((data) => data.price),
-      },
-    ],
-  });
+  const [slideId, setSlideId] = useState<number>(1);
 
   return (
     <main>
@@ -263,23 +257,19 @@ function App() {
           slidesPerView={1}
           spaceBetween={0}
           loop={true}
+          effect="fade"
           autoplay={{
             delay: 5100,
             disableOnInteraction: false,
           }}
-          onSlideChange={(swiperCore) => {
-            const { realIndex } = swiperCore;
-            console.log(realIndex);
-          }}
+          onSlideChange={(swiperCore) => {}}
           modules={[Autoplay]}
           className="mySwiper">
           {PriceData.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="slide">
                 <video src={Myvideo} autoPlay loop muted />
-                <div className="chart-wrapper">
-                  <LineChart />
-                </div>
+                <LineChart title={item.title} prices={item.price} years={item.year} />
               </div>
             </SwiperSlide>
           ))}

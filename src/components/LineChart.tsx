@@ -6,63 +6,62 @@ import {
   LinearScale, // y axis
   PointElement,
 } from 'chart.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { PriceData } from '../ChartData';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 interface IProps {
-  id: number;
-  index: number;
+  prices: number[];
+  years: string[];
+  title: string;
 }
 
-const LineChart = () => {
-  const data = {
-    labels: ['March', 'April', 'May'],
+const LineChart = ({ prices, years, title }: IProps) => {
+  const [chartData, setChartData] = useState({
+    labels: years,
     datasets: [
       {
-        // label: 'Sales of the year',
-        data: [6, 3, 9],
-        backgroundColor: 'white',
-        borderColor: 'white',
-        pointBorderColor: 'red',
+        label: 'Price',
+        data: prices,
+
         fill: 'white',
-        tension: 0.4,
+        tension: 0,
+        backgroundColor: '#e2e04d',
+        borderColor: '#99971c',
+        borderWidth: 4,
       },
     ],
-  };
+  });
+
+  console.log('render');
 
   const options = {
-    plugins: {
-      // legend: true,
+    animations: {
+      tension: {
+        duration: 2000,
+        easing: 'ease',
+        from: 1,
+        to: 0.1,
+        loop: true,
+      },
     },
-    // bac
+
     scales: {
       y: {
-        // min: 3,
-        // max: 6,
+        ticks: { color: 'white', beginAtZero: true },
+      },
+      x: {
+        ticks: { color: 'white', beginAtZero: true },
       },
     },
   };
-
-  const [value, setValue] = useState<number>(0);
-
-  // function useForceUpdate() {
-  //   const [value, setValue] = useState<number>(0); // integer state
-  //   return () => setValue((value: any) => value + 1); // update state to force render
-  //   // A function that increment 👆🏻 the previous state like here
-  //   // is better than directly setting `setValue(value + 1)`
-  // }
-
-  setTimeout(() => {
-    setValue((value) => value + 1);
-    console.log('render');
-  }, 5100);
 
   return (
     <div className="line-chart">
-      <h1>Header</h1>
+      <h1 className="chart-title">{title}</h1>
       <div className="chart">
-        <Line data={data} options={options}></Line>
+        <Line data={chartData} options={options}></Line>
       </div>
     </div>
   );
